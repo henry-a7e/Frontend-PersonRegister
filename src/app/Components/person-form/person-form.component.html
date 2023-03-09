@@ -1,0 +1,59 @@
+<h1 mat-dialog-title>Nueva Persona</h1>
+<div mat-dialog-content>
+
+  <form [formGroup]="formPerson">
+    <mat-grid-list cols="1" rowHeight="80px">
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre Completo</mat-label>
+          <input matInput formControlName="name" autocomplete="off">
+          <mat-error *ngIf="
+                     formPerson.get('name')!.errors &&
+                     formPerson.get('name')!.hasError('required')
+                   ">Este campo es requerido
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de Cumpleños</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="birthdate">
+          <mat-datepicker-toggle matSuffix [for]="picker
+                    "></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="
+                     formPerson.get('birthdate')!.errors &&
+                     formPerson.get('birthdate')!.hasError('required')
+                   ">Este campo es requerido
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>CPF</mat-label>
+          <input matInput formControlName="cpf" autocomplete="off" type="number">
+          <mat-error *ngIf="
+                     formPerson.get('cpf')!.errors &&
+                     formPerson.get('cpf')!.hasError('required')">Este campo es requerido
+          </mat-error>
+          <mat-error *ngIf="formPerson.get('cpf')!.errors &&
+                     formPerson.get('cpf')!.hasError('max')">
+            No puede ser más de 9 números
+          </mat-error>
+          <mat-error *ngIf="formPerson.get('cpf')!.errors &&
+                     formPerson.get('cpf')!.hasError('min')">
+            No puede ser menos de 8 números
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+  <button mat-raised-button color="primary" (click)="savePerson()" [disabled]="formPerson.invalid">Crear</button>
+</div>

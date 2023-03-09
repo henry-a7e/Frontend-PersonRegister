@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Nuevos Telefonos para "{{person.name}}"</h1>
+<div mat-dialog-content>
+
+    <form [formGroup]="phonesForm">
+        <div formArrayName="phones">
+            <mat-grid-list cols="1" rowHeight="80px">
+                <ng-container *ngFor="let phone of phones.controls; index as i">
+                    <mat-grid-tile>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Número Telefonico</mat-label>
+                            <input matInput type="number" name="phones - {{i}}" [formControlName]="i">
+                        </mat-form-field>
+
+                        <button mat-icon-button color="warn" (click)="deletePhoneList(i)"> <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-grid-tile>
+                </ng-container>
+            </mat-grid-list>
+
+            <button mat-raised-button color="basic" (click)="addPhoneList()">Añadir número</button>
+        </div>
+    </form>
+
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+    <button mat-raised-button color="primary" (click)="agregarNumeros()"
+        [disabled]="phonesForm.invalid || (counterlistPhones<1)"> Guardar números </button>
+</div>

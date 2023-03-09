@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Nros. de telefónicos de "{{person.name}}"</h1>
+<div mat-dialog-content>
+    <div *ngIf="listPhones.length<1">
+        <p>No hay números telefónicos</p> 
+     </div>
+    <mat-list role="list" *ngFor="let item of listPhones; index as i"  >
+       
+        <mat-list-item role="listitem">
+            Nro {{i+1}}.- {{item.phoneNumber}}
+        </mat-list-item>
+        <hr>
+    </mat-list>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+</div>
